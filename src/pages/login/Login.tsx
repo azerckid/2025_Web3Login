@@ -62,19 +62,29 @@ function Login() {
       if (window.ethereum) {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const accounts = await provider.send('eth_requestAccounts', []);
-        console.log('accounts:', accounts);
         if (accounts && accounts.length > 0) {
           login(accounts[0]);
           navigate('/products');
         } else {
-          alert('계정이 선택되지 않았습니다. 다시 시도해 주세요.');
+          alert('계정이 선택되지 않았습니다. 메타마스크 팝업에서 계정을 선택해 주세요.');
         }
       } else {
-        alert('메타마스크가 설치되어 있지 않습니다.');
+        alert('메타마스크가 설치되어 있지 않습니다. 크롬 또는 파이어폭스 브라우저에서 메타마스크를 설치 후 이용해 주세요.');
       }
     } catch (error) {
       console.error(error);
-      alert('지갑 연결이 취소되었거나 오류가 발생했습니다.');
+      if (error && typeof error === 'object' && 'code' in error && (error as any).code === 4001) {
+        // 4001: 사용자가 연결을 거부함
+        alert('지갑 연결이 취소되었습니다. 메타마스크 팝업에서 연결을 허용해 주세요.');
+      } else {
+        alert(
+          '지갑 연결에 실패했습니다. \n\n' +
+          '1. 메타마스크가 설치되어 있고, 올바른 브라우저(크롬/파이어폭스)에서 실행 중인지 확인해 주세요.\n' +
+          '2. 팝업 차단이 해제되어 있는지 확인해 주세요.\n' +
+          '3. 네트워크 연결 상태를 확인해 주세요.' +
+          (error && typeof error === 'object' && 'message' in error ? `\n상세: ${(error as any).message}` : '')
+        );
+      }
     }
   };
 
