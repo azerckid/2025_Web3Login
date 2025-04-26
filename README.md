@@ -1,46 +1,58 @@
-# Getting Started with Create React App
+# Web3Login
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Web3Login은 React와 Styled-Components, MetaMask(메타마스크) 지갑을 활용한 Web3 로그인 데모 프로젝트입니다.
 
-## Available Scripts
+## 주요 기능
+- 메타마스크 지갑을 이용한 Web3 로그인
+- 로그인/로그아웃 및 인증 상태 관리
+- 네비게이션바에 계정 주소 표시
+- 테마(다크/라이트) 토글
+- 보호된 페이지(Products) 접근 제어
+- 친절한 에러/안내 메시지
 
-In the project directory, you can run:
+## 폴더 구조
+```
+src/
+  components/         # Navbar, ProtectedRoute 등 공통 컴포넌트
+  context/            # AuthContext, ThemeContext 등 전역 상태
+  pages/
+    login/            # 로그인 페이지 및 레이아웃
+    signin/           # 회원가입 페이지 및 레이아웃
+    products/         # 제품 목록 페이지 및 레이아웃
+  routes/             # 라우터 설정
+  styles/             # 글로벌 스타일, 테마
+  App.tsx             # 앱 조립
+  index.tsx           # 진입점
+```
 
-### `npm start`
+## 설치 및 실행
+```bash
+# 의존성 설치
+npm install
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# 개발 서버 실행
+npm start
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# 프로덕션 빌드
+npm run build
+```
 
-### `npm test`
+## 사용 방법
+1. **크롬/파이어폭스 브라우저**에서 실행하세요.
+2. **MetaMask(메타마스크) 확장 프로그램**을 설치하세요.
+3. 로그인 버튼 클릭 → 지갑 선택 → 계정 선택 → Products 페이지로 이동
+4. 네비게이션바에서 계정 주소 확인 및 로그아웃 가능
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 주요 코드 설명
+- `AuthContext` : 로그인/로그아웃 및 계정 상태 관리
+- `Login.tsx` : 메타마스크 연결 및 로그인 처리
+- `Navbar.tsx` : 인증 상태/계정 표시, 로그아웃, 테마 토글
+- `ProtectedRoute.tsx` : 인증된 사용자만 접근 가능한 페이지 보호
 
-### `npm run build`
+## 참고/주의사항
+- 메타마스크가 설치되어 있지 않으면 안내 메시지가 표시됩니다.
+- 지원 브라우저(크롬/파이어폭스)에서만 정상 동작합니다.
+- 실제 이더리움 네트워크에 트랜잭션을 보내지 않고, 지갑 주소 인증만 수행합니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 라이선스
+MIT
