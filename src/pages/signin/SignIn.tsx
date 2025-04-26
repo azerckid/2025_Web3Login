@@ -57,7 +57,7 @@ function SignIn() {
   const navigate = useNavigate();
 
   const handleSignIn = () => {
-    login();
+    login('0x1234567890abcdef1234567890abcdef12345678'); // 더미 계정 주소
     navigate('/products');
   };
 

@@ -58,14 +58,23 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    if (window.ethereum) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send('eth_requestAccounts', []);
-      // 로그인 처리 및 페이지 이동
-      login();
-      navigate('/products');
-    } else {
-      alert('메타마스크가 설치되어 있지 않습니다.');
+    try {
+      if (window.ethereum) {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const accounts = await provider.send('eth_requestAccounts', []);
+        console.log('accounts:', accounts);
+        if (accounts && accounts.length > 0) {
+          login(accounts[0]);
+          navigate('/products');
+        } else {
+          alert('계정이 선택되지 않았습니다. 다시 시도해 주세요.');
+        }
+      } else {
+        alert('메타마스크가 설치되어 있지 않습니다.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('지갑 연결이 취소되었거나 오류가 발생했습니다.');
     }
   };
 

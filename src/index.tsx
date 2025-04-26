@@ -5,6 +5,7 @@ import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { GlobalStyle } from './styles/globalStyles';
 import { lightTheme, darkTheme } from './styles/theme';
 import { ThemeProvider, useThemeContext } from './context/ThemeContext';
+import { AuthProvider } from './context/AuthContext';
 import { router } from './routes';
 
 const ThemedApp = () => {
@@ -22,7 +23,9 @@ const Root = () => {
   return (
     <React.StrictMode>
       <ThemeProvider>
-        <ThemedApp />
+        <AuthProvider>
+          <ThemedApp />
+        </AuthProvider>
       </ThemeProvider>
     </React.StrictMode>
   );

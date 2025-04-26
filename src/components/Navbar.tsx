@@ -65,35 +65,42 @@ const ThemeToggle = styled.button`
   }
 `;
 
+const AccountInfo = styled.span`
+  color: ${({ theme }) => theme.colors.text};
+  margin-right: 1rem;
+  font-weight: bold;
+`;
+
 const Navbar = () => {
-    const { toggleTheme } = useThemeContext();
-    const { isAuthenticated, logout } = useAuth();
-    const navigate = useNavigate();
+  const { toggleTheme } = useThemeContext();
+  const { isAuthenticated, account, logout } = useAuth();
+  const navigate = useNavigate();
 
-    const handleLogout = () => {
-        logout();
-        navigate('/');
-    };
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
-    return (
-        <NavContainer>
-            <Logo to="/">Web3 App</Logo>
-            <NavLinks>
-                {isAuthenticated ? (
-                    <>
-                        <NavLink to="/products">제품 목록</NavLink>
-                        <Button onClick={handleLogout}>로그아웃</Button>
-                    </>
-                ) : (
-                    <>
-                        <NavLink to="/">로그인</NavLink>
-                        <NavLink to="/signin">회원가입</NavLink>
-                    </>
-                )}
-                <ThemeToggle onClick={toggleTheme}>테마 변경</ThemeToggle>
-            </NavLinks>
-        </NavContainer>
-    );
+  return (
+    <NavContainer>
+      <Logo to="/">Web3 App</Logo>
+      <NavLinks>
+        {isAuthenticated ? (
+          <>
+            <NavLink to="/products">제품 목록</NavLink>
+            {account && <AccountInfo>{account.slice(0, 6)}...{account.slice(-4)}</AccountInfo>}
+            <Button onClick={handleLogout}>로그아웃</Button>
+          </>
+        ) : (
+          <>
+            <NavLink to="/">로그인</NavLink>
+            <NavLink to="/signin">회원가입</NavLink>
+          </>
+        )}
+        <ThemeToggle onClick={toggleTheme}>테마 변경</ThemeToggle>
+      </NavLinks>
+    </NavContainer>
+  );
 };
 
 export default Navbar; 
